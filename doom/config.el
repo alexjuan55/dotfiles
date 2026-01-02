@@ -97,7 +97,11 @@
                (org-id-get-create)))))
     ("t" "Todo" entry  (file+olp+datetree "~/notes/journal.org")
         ,(concat "* TODO %?\n"
-                 "SCHEDULED: %t"))
+                 "SCHEDULED: %t")
+             :before-finalize (lambda ()
+             (save-excursion
+               (while (org-up-heading-safe)
+               (org-id-get-create)))))
     ("e" "Capture entry into ID node"
      entry (function org-node-capture-target) "* %?")
     ("p" "Capture plain text into ID node"
